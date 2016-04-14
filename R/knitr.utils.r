@@ -231,6 +231,7 @@ compress.plots <- function
 #' @param blog.folder blog folder
 #' @param figure.folder figure folder, \strong{defaults to "public/images/"} 
 #' @param fig.path figure folder, \strong{defaults to post.figure.path(post.filename)} 
+#' @param move.source.post flag to indicate if source post is moved, \strong{defaults to true} 
 #'
 #' @return nothing
 #'
@@ -246,7 +247,8 @@ move.post <- function
 	post.filename, 
 	blog.folder,
 	figure.folder = "public/images/", 
-	fig.path = post.figure.path(post.filename, figure.folder)
+	fig.path = post.figure.path(post.filename, figure.folder),
+	move.source.post = T	
 ) 
 {	
 	blog.folder = gsub('/','\\\\', blog.folder)
@@ -254,6 +256,9 @@ move.post <- function
 	# copy post filename
 	md.file = change.ext(post.filename, '.md') 
 	shell(paste('xcopy /Y ', gsub('/','\\\\',md.file), ' ', blog.folder, '\\_posts\\*.*', sep=''), wait = TRUE)		
+	
+	if(move.source.post)
+		shell(paste('xcopy /Y ', gsub('/','\\\\',post.filename), ' ', blog.folder, '\\rposts\\*.*', sep=''), wait = TRUE)
 	
 	# clean figure folder in blog folder
 	fig.path = gsub('/','\\\\', fig.path)
