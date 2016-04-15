@@ -5,7 +5,7 @@
 \title{Helper function used for SIT blog}
 \usage{
 run.posts(filename.pattern = "^\\\\d*-.*.r$", move.post = F,
-  blog.folder = "web", compress.plots = F,
+  blog.folder = "web", move.source.post = F, compress.plots = F,
   pngout.location = "c:/Library/exe/pngout.exe", clean.figure.folder = T,
   add.info2post.fn = add.SIT.info2post, base.url = "/", fig.width = 9,
   fig.height = 6, remove.UTF = T, render.fn = render_jekyll)
@@ -13,9 +13,11 @@ run.posts(filename.pattern = "^\\\\d*-.*.r$", move.post = F,
 \arguments{
 \item{filename.pattern}{post files to process, \strong{defaults to '^\\d*-.*.r$'}}
 
-\item{move.post}{flag to inidicate that post must be moved to blog folder, \strong{defaults to FALSE}}
+\item{move.post}{flag to inidicate to move post to blog folder, \strong{defaults to FALSE}}
 
 \item{blog.folder}{blog folder}
+
+\item{move.source.post}{flag to indicate to move source post to blog folder, \strong{defaults to FALSE}}
 
 \item{compress.plots}{flag to inidicate that plots must be compressed, \strong{defaults to FALSE}}
 

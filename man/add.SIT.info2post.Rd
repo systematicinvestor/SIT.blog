@@ -5,7 +5,7 @@
 \title{Add info to the post. Custom version for SIT blog.}
 \usage{
 add.SIT.info2post(post.filename, out.filename,
-  fig.path = post.figure.path(post.filename))
+  fig.path = post.figure.path(post.filename), add.source.post.link = F)
 }
 \arguments{
 \item{post.filename}{R script post filename}
@@ -13,6 +13,8 @@ add.SIT.info2post(post.filename, out.filename,
 \item{out.filename}{output filename}
 
 \item{fig.path}{figure folder, \strong{defaults to post.figure.path(post.filename)}}
+
+\item{add.source.post.link}{flag to indicate to include source post link, \strong{defaults to FALSE}}
 }
 \value{
 output filename

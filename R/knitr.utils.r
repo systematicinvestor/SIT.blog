@@ -231,7 +231,7 @@ compress.plots <- function
 #' @param blog.folder blog folder
 #' @param figure.folder figure folder, \strong{defaults to "public/images/"} 
 #' @param fig.path figure folder, \strong{defaults to post.figure.path(post.filename)} 
-#' @param move.source.post flag to indicate if source post is moved, \strong{defaults to true} 
+#' @param move.source.post flag to indicate to move source post to blog folder, \strong{defaults to FALSE} 
 #'
 #' @return nothing
 #'
@@ -248,7 +248,7 @@ move.post <- function
 	blog.folder,
 	figure.folder = "public/images/", 
 	fig.path = post.figure.path(post.filename, figure.folder),
-	move.source.post = T	
+	move.source.post = F
 ) 
 {	
 	blog.folder = gsub('/','\\\\', blog.folder)
@@ -275,6 +275,7 @@ move.post <- function
 #' @param post.filename R script post filename
 #' @param out.filename output filename
 #' @param fig.path figure folder, \strong{defaults to post.figure.path(post.filename)} 
+#' @param add.source.post.link flag to indicate to include source post link, \strong{defaults to FALSE} 
 #'
 #' @return output filename
 #'
@@ -291,13 +292,23 @@ add.SIT.info2post <- function
 (
 	post.filename, 
 	out.filename, 
-	fig.path = post.figure.path(post.filename)
+	fig.path = post.figure.path(post.filename),
+	add.source.post.link = F
 ) 
 {
     # load file and locate header
     txt = readLines(post.filename)  
     
    	index = which(grepl('---',txt))[2]
+   	
+   	source.post.link.token = ''
+	if(add.source.post.link) 
+		source.post.link.token = paste(
+			"#' For your convenience, the",
+			paste0('[', change.ext(basename(post.filename),""), '](https://github.com/systematicinvestor/systematicinvestor.github.io/blob/master/rposts/', post.filename, ')'),
+			"post source code."
+		)
+   	
    	
    	# insert SIT info
    	txt = c(txt[1:index],
@@ -322,9 +333,13 @@ add.SIT.info2post <- function
 		
 		txt[-c(1:index)],
 		"",
+		"",
+		source.post.link.token,
+		"",
+		"#' ",
 		"#' *(this report was produced on: `r as.character(Sys.Date())`)*"
 	)
-	
+		
     temp = file(out.filename,'w')
 	writeLines(txt,con=temp)
 	close(temp)

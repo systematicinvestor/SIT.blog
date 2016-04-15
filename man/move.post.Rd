@@ -5,7 +5,8 @@
 \title{Move post markdown and figures to blog folder}
 \usage{
 move.post(post.filename, blog.folder, figure.folder = "public/images/",
-  fig.path = post.figure.path(post.filename, figure.folder))
+  fig.path = post.figure.path(post.filename, figure.folder),
+  move.source.post = F)
 }
 \arguments{
 \item{post.filename}{post filename}
@@ -15,6 +16,8 @@ move.post(post.filename, blog.folder, figure.folder = "public/images/",
 \item{figure.folder}{figure folder, \strong{defaults to "public/images/"}}
 
 \item{fig.path}{figure folder, \strong{defaults to post.figure.path(post.filename)}}
+
+\item{move.source.post}{flag to indicate to move source post to blog folder, \strong{defaults to FALSE}}
 }
 \value{
 nothing

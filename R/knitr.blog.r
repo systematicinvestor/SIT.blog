@@ -3,8 +3,9 @@
 #'
 #' @param filename.pattern post files to process, \strong{defaults to '^\\d*-.*.r$'} 
 #'
-#' @param move.post flag to inidicate that post must be moved to blog folder, \strong{defaults to FALSE} 
+#' @param move.post flag to inidicate to move post to blog folder, \strong{defaults to FALSE} 
 #' @param blog.folder blog folder
+#' @param move.source.post flag to indicate to move source post to blog folder, \strong{defaults to FALSE} 
 #'
 #' @param compress.plots flag to inidicate that plots must be compressed, \strong{defaults to FALSE} 
 #' @param pngout.location pngout location, \strong{defaults to 'c:/Library/exe/pngout.exe'} 
@@ -36,7 +37,8 @@ run.posts <- function
 	filename.pattern ='^\\d*-.*.r$',
 	
 	move.post = F,
-	blog.folder = 'web',	
+	blog.folder = 'web',
+	move.source.post = F,	
 	
 	compress.plots = F,
 	pngout.location = 'c:/Library/exe/pngout.exe',
@@ -61,13 +63,15 @@ run.posts <- function
 	for(post.filename  in filenames) {
 		if( is.null(add.info2post.fn) ||  is.na(add.info2post.fn) ) add.info2post.fn = function(f1, f2) file.copy(f1, f2)
 		
-		knit.post(post.filename, make.rmd(add.info2post.fn(post.filename, temp.filename)),
+		knit.post(post.filename, make.rmd(
+			add.info2post.fn(post.filename, temp.filename, add.source.post.link = move.source.post)
+			),
 			base.url=base.url, fig.width=fig.width, fig.height = fig.height,
 			remove.UTF=remove.UTF, render.fn = render.fn)
 		
 		if( compress.plots ) compress.plots(post.filename, pngout.location=pngout.location)
 		
-		if(	move.post ) move.post(post.filename, blog.folder)
+		if(	move.post ) move.post(post.filename, blog.folder, move.source.post = move.source.post)		
 	}
 }
 
