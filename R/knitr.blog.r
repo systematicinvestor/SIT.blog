@@ -13,6 +13,7 @@
 #' @param clean.figure.folder flag to inidicate that figure folder must be cleaned, \strong{defaults to TRUE} 
 #'
 #' @param add.info2post.fn add custom info to the post function, \strong{defaults to add.SIT.info2post} 
+#' @param add.date flag to indicate to include date when post was run, \strong{defaults to TRUE} 
 #'
 #' @param base.url blog base url, \strong{defaults to "/"} 
 #' @param fig.width figure width, \strong{defaults to 9} 
@@ -43,9 +44,10 @@ run.posts <- function
 	compress.plots = F,
 	pngout.location = 'c:/Library/exe/pngout.exe',
 	
-	clean.figure.folder = T,
+	clean.figure.folder = T,	
 	
 	add.info2post.fn = add.SIT.info2post,
+	add.date = T,
 
 	base.url = '/', 	
 	fig.width=9, 
@@ -64,7 +66,8 @@ run.posts <- function
 		if( is.null(add.info2post.fn) ||  is.na(add.info2post.fn) ) add.info2post.fn = function(f1, f2) file.copy(f1, f2)
 		
 		knit.post(post.filename, make.rmd(
-			add.info2post.fn(post.filename, temp.filename, add.source.post.link = move.source.post)
+			add.info2post.fn(post.filename, temp.filename, 
+				add.source.post.link = move.source.post, add.date = add.date)
 			),
 			base.url=base.url, fig.width=fig.width, fig.height = fig.height,
 			remove.UTF=remove.UTF, render.fn = render.fn)

@@ -276,6 +276,7 @@ move.post <- function
 #' @param out.filename output filename
 #' @param fig.path figure folder, \strong{defaults to post.figure.path(post.filename)} 
 #' @param add.source.post.link flag to indicate to include source post link, \strong{defaults to FALSE} 
+#' @param add.date flag to indicate to include date when post was run, \strong{defaults to TRUE} 
 #'
 #' @return output filename
 #'
@@ -293,7 +294,8 @@ add.SIT.info2post <- function
 	post.filename, 
 	out.filename, 
 	fig.path = post.figure.path(post.filename),
-	add.source.post.link = F
+	add.source.post.link = F,
+	add.date = T
 ) 
 {
     # load file and locate header
@@ -308,7 +310,9 @@ add.SIT.info2post <- function
 			paste0('[', change.ext(basename(post.filename),""), '](https://github.com/systematicinvestor/systematicinvestor.github.io/blob/master/rposts/', post.filename, ')'),
 			"post source code."
 		)
-   	
+		
+	date.token = ''
+   	if(add.date) date.token = "#' *(this report was produced on: `r as.character(Sys.Date())`)*"
    	
    	# insert SIT info
    	txt = c(txt[1:index],
@@ -317,6 +321,7 @@ add.SIT.info2post <- function
 		"",
 		
 		"#+ results = 'hide', echo=F",
+		"try(setInternet2(TRUE),T)",
 		"#Load SIT",
 		"try(detach('package:SIT', unload = T),T)",
 		"library(SIT)",
@@ -337,7 +342,7 @@ add.SIT.info2post <- function
 		source.post.link.token,
 		"",
 		"#' ",
-		"#' *(this report was produced on: `r as.character(Sys.Date())`)*"
+		date.token
 	)
 		
     temp = file(out.filename,'w')
@@ -367,6 +372,7 @@ add.SIT.info2postRmd <- function
 		"",
 		
 		"```{r, results = 'hide', echo=F}",
+		"try(setInternet2(TRUE),T)",
 		"#Load SIT",
 		"try(detach('package:SIT', unload = T),T)",		
 		"library(SIT)",

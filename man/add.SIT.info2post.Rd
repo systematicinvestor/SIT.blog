@@ -5,7 +5,8 @@
 \title{Add info to the post. Custom version for SIT blog.}
 \usage{
 add.SIT.info2post(post.filename, out.filename,
-  fig.path = post.figure.path(post.filename), add.source.post.link = F)
+  fig.path = post.figure.path(post.filename), add.source.post.link = F,
+  add.date = T)
 }
 \arguments{
 \item{post.filename}{R script post filename}
@@ -15,6 +16,8 @@ add.SIT.info2post(post.filename, out.filename,
 \item{fig.path}{figure folder, \strong{defaults to post.figure.path(post.filename)}}
 
 \item{add.source.post.link}{flag to indicate to include source post link, \strong{defaults to FALSE}}
+
+\item{add.date}{flag to indicate to include date when post was run, \strong{defaults to TRUE}}
 }
 \value{
 output filename

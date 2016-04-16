@@ -7,8 +7,9 @@
 run.posts(filename.pattern = "^\\\\d*-.*.r$", move.post = F,
   blog.folder = "web", move.source.post = F, compress.plots = F,
   pngout.location = "c:/Library/exe/pngout.exe", clean.figure.folder = T,
-  add.info2post.fn = add.SIT.info2post, base.url = "/", fig.width = 9,
-  fig.height = 6, remove.UTF = T, render.fn = render_jekyll)
+  add.info2post.fn = add.SIT.info2post, add.date = T, base.url = "/",
+  fig.width = 9, fig.height = 6, remove.UTF = T,
+  render.fn = render_jekyll)
 }
 \arguments{
 \item{filename.pattern}{post files to process, \strong{defaults to '^\\d*-.*.r$'}}
@@ -26,6 +27,8 @@ run.posts(filename.pattern = "^\\\\d*-.*.r$", move.post = F,
 \item{clean.figure.folder}{flag to inidicate that figure folder must be cleaned, \strong{defaults to TRUE}}
 
 \item{add.info2post.fn}{add custom info to the post function, \strong{defaults to add.SIT.info2post}}
+
+\item{add.date}{flag to indicate to include date when post was run, \strong{defaults to TRUE}}
 
 \item{base.url}{blog base url, \strong{defaults to "/"}}
 
