@@ -157,6 +157,10 @@ print = function(...) {
 	if ( is.matrix(x) || is.data.frame(x) || is.xts(x) )
 		x = kable(x)
 	
+	if ( is.vector(x) && !is.null(names(x)) )
+		x = kable(t(as.matrix(x)))
+
+		
 	# mode(x), typeof(x)
 	if(is.list(x))
 		cat('\n', '<pre>', capture.output(x),  '</pre>','    \n\n', sep='\n')	
